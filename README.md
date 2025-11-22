@@ -41,6 +41,7 @@ The Layer5 Recognition Program is an initiative by the Layer5 open source commun
   - **Design and Outreach**: E.g., "Design Pioneer" for creating user flows or visuals, or badges for Hacktoberfest participation and event promotion.
   - **Writing and Community Building**: E.g., "Writer's Program" for publishing two or more articles, blog posts, or docs.
   - **Certifications**: e.g. [Certified Meshery Contributor](https://www.cncf.io/blog/2025/10/27/announcing-the-certified-meshery-contributor-cmc/)
+
 Beyond virtual tokens, badges embody Layer5's values of openness, collaboration, and growth. They provide tangible recognition, help build portfolios for contributors, and foster a supportive ecosystem for newcomers and veterans alike. The program ties into broader community efforts like mentorship, internships, and events to promote inclusive open source participation.
 
 ### How to Participate
