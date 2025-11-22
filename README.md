@@ -21,29 +21,30 @@
 
 <h5><p align="center"><i>If you’re using Layer5 tools or if you like the project, please <a href="https://github.com/layer5io/layer5/stargazers">★</a> this repository to show your support! 🤩</i></p></h5>
 
-
 <img src="https://github.com/layer5io/recognition/blob/master/.github/readme/images/recognition-banner.webp" />
 
 <br />
 
 ## Recognition Program
 
-Badges Website: https://badges.layer5.io
-User Profiles: https://cloud.layer5.io/users
-Recognition Leaderboard: ?
+- Badges Website: https://badges.layer5.io
+- User Profiles: https://cloud.layer5.io/users
+- Recognition Leaderboard: ?
 
 The Layer5 Recognition Program is an initiative by the Layer5 open source community designed to celebrate and incentivize participation from users and contributors. The recognition program operates as a merit-based system in which digital badges symbolize achievements, skills, milestones, and dedication in using or contributing to Layer5-supported projects.
 
 ### Key Features
+
 - **No Limits on Earnings**: Participants can collect as many badges as they qualify for, encouraging ongoing engagement.
 - **Types of Badges**: Badges cover diverse roles and contributions, including:
   - **Technical Contributions**: E.g., "Patterns" for impactful work on the Cloud Native Patterns project, or "Docs" for Meshery documentation improvements.
   - **Design and Outreach**: E.g., "Design Pioneer" for creating user flows or visuals, or badges for Hacktoberfest participation and event promotion.
   - **Writing and Community Building**: E.g., "Writer's Program" for publishing two or more articles, blog posts, or docs.
   - **Certifications**: e.g. [Certified Meshery Contributor](https://www.cncf.io/blog/2025/10/27/announcing-the-certified-meshery-contributor-cmc/)
-- **Purpose and Benefits**: Beyond virtual tokens, badges embody Layer5's values of openness, collaboration, and growth. They provide tangible recognition, help build portfolios for contributors, and foster a supportive ecosystem for newcomers and veterans alike. The program ties into broader community efforts like mentorship, internships, and events to promote inclusive open-source participation.
+Beyond virtual tokens, badges embody Layer5's values of openness, collaboration, and growth. They provide tangible recognition, help build portfolios for contributors, and foster a supportive ecosystem for newcomers and veterans alike. The program ties into broader community efforts like mentorship, internships, and events to promote inclusive open source participation.
 
 ### How to Participate
+
 To earn badges, use our tools, take a certification, engage via Layer5's GitHub repositories, Slack workspace, or forum—contributions are reviewed and awarded accordingly. Full details, including a badge gallery and earning criteria, are available in the [Layer5 Community Handbook](https://layer5.io/community/handbook/recognition). 
 
 Read more about [Showcasing Your Achievements as a User and a Contributor](https://layer5.io/blog/community/layer5-recognition-program) in our blog and how [Your Efforts Do Not Go Unnoticed or Unappreciated](https://layer5.io/community/handbook/recognition) in the community handbook.
