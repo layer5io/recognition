@@ -1,5 +1,65 @@
-# layer5-repo-template
-This repository is used as the boilerplate for consistency across all Layer5 repos.
+<p style="text-align:center;" align="center">
+      <picture align="center">
+         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/layer5io/recognitionmaster/.github/assets/images/layer5/layer5-light-no-trim.svg" />
+         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/layer5io/recognitionmaster/.github/assets/images/layer5/layer5-no-trim.svg" />
+         <img align="center" src="https://raw.githubusercontent.com/layer5io/recognitionmaster/.github/assets/images/layer5/layer5-no-trim.svg" alt="Layer5 logo" width="45%"/>
+      </picture>
+</p>
+
+<p align="center">
+<a href="https://github.com/layer5io/layer5" alt="GitHub contributors">
+<img src="https://img.shields.io/github/contributors/layer5io/layer5.svg" /></a>
+<a href="https://github.com/issues?q=is%3Aopen+is%3Aissue+archived%3Afalse+(org%3Alayer5io+OR+org%3Ameshery+OR+OR+org%3Ameshery-extensions+org%3Alayer5labs+OR+org%3Aservice-mesh-performance+OR+org%3Aservice-mesh-patterns+OR+org%3Ameshery-extensions)+label%3A%22help+wanted%22" alt="Help wanted GitHub issues">
+<img src="https://img.shields.io/github/issues/layer5io/layer5/help%20wanted.svg?color=%23DDDD00" /></a>
+<a href="https://slack.layer5.io" alt="Slack">
+<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" /></a>
+<a href="https://twitter.com/layer5" alt="Twitter Follow">
+<img src="https://img.shields.io/twitter/follow/layer5.svg?label=Follow+Layer5&style=social" /></a>
+<a href="https://github.com/layer5io/layer5" alt="License">
+<img src="https://img.shields.io/github/license/layer5io/layer5.svg" /></a>
+</p>
+
+<h5><p align="center"><i>If you’re using Layer5 tools or if you like the project, please <a href="https://github.com/layer5io/layer5/stargazers">★</a> this repository to show your support! 🤩</i></p></h5>
+
+
+<img src="https://github.com/layer5io/recognition/blob/master/.github/readme/images/recognition-banner.webp" />
+
+<br />
+
+## Recognition Program
+
+Badges Website: https://badges.layer5.io
+User Profiles: https://cloud.layer5.io/users
+Recognition Leaderboard: ?
+
+The Layer5 Recognition Program is an initiative by the Layer5 open source community designed to celebrate and incentivize participation from users and contributors. The recognition program operates as a merit-based system in which digital badges symbolize achievements, skills, milestones, and dedication in using or contributing to Layer5-supported projects.
+
+### Key Features
+- **No Limits on Earnings**: Participants can collect as many badges as they qualify for, encouraging ongoing engagement.
+- **Types of Badges**: Badges cover diverse roles and contributions, including:
+  - **Technical Contributions**: E.g., "Patterns" for impactful work on the Cloud Native Patterns project, or "Docs" for Meshery documentation improvements.
+  - **Design and Outreach**: E.g., "Design Pioneer" for creating user flows or visuals, or badges for Hacktoberfest participation and event promotion.
+  - **Writing and Community Building**: E.g., "Writer's Program" for publishing two or more articles, blog posts, or docs.
+  - **Certifications**: e.g. [Certified Meshery Contributor](https://www.cncf.io/blog/2025/10/27/announcing-the-certified-meshery-contributor-cmc/)
+- **Purpose and Benefits**: Beyond virtual tokens, badges embody Layer5's values of openness, collaboration, and growth. They provide tangible recognition, help build portfolios for contributors, and foster a supportive ecosystem for newcomers and veterans alike. The program ties into broader community efforts like mentorship, internships, and events to promote inclusive open-source participation.
+
+### How to Participate
+To earn badges, use our tools, take a certification, engage via Layer5's GitHub repositories, Slack workspace, or forum—contributions are reviewed and awarded accordingly. Full details, including a badge gallery and earning criteria, are available in the [Layer5 Community Handbook](https://layer5.io/community/handbook/recognition). 
+
+Read more about [Showcasing Your Achievements as a User and a Contributor](https://layer5.io/blog/community/layer5-recognition-program) in our blog and how [Your Efforts Do Not Go Unnoticed or Unappreciated](https://layer5.io/community/handbook/recognition) in the community handbook.
+
+## About Layer5
+
+Layer5's cloud native application and infrastructure management software enables organizations to expect more from their infrastructure. We embrace _developer_-defined infrastructure. We empower developers to change how they write applications, support _operators_ in rethinking how they run modern infrastructure, and enable _product owners_ to regain full-control over their product portfolio.
+
+
+### Join the Community
+We invite newcomers and experienced contributors alike to join the Meshery and Layer5 communities:
+- Participate in meetings listed on the [Community Calendar](https://meet.layer5.io).
+- Watch recorded meetings and presentations in the [Community Playlist](https://www.youtube.com/playlist?list=PL3A-A6hPO2IMPPqVjuzgqNU5xwnFFn3n0).
+- Get started by submitting the [Newcomer Form](https://layer5.io/newcomer) .to gain access to community resources and tools.
+- If you have questions, join the [Community Slack](https://slack.layer5.io) or ask in the [Discussion Forum](https://discuss.layer5.io/).
+
 
 <div>&nbsp;</div>
 
