@@ -65,7 +65,7 @@ Our projects are community-built and welcome collaboration. 👍 Be sure to see 
 Become a <b>Meshtee</b> today!</p>
 
 Find out more on the <a href="https://layer5.io/community">Layer5 community</a>. <br />
-<br /><br />
+<br /><br /><br /><br />
 </p>
 
 <div>&nbsp;</div>
