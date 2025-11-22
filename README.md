@@ -50,19 +50,6 @@ To earn badges, use our tools, take a certification, engage via Layer5's GitHub 
 
 Read more about [Showcasing Your Achievements as a User and a Contributor](https://layer5.io/blog/community/layer5-recognition-program) in our blog and how [Your Efforts Do Not Go Unnoticed or Unappreciated](https://layer5.io/community/handbook/recognition) in the community handbook.
 
-## About Layer5
-
-Layer5's cloud native application and infrastructure management software enables organizations to expect more from their infrastructure. We embrace _developer_-defined infrastructure. We empower developers to change how they write applications, support _operators_ in rethinking how they run modern infrastructure, and enable _product owners_ to regain full-control over their product portfolio.
-
-
-### Join the Community
-We invite newcomers and experienced contributors alike to join the Meshery and Layer5 communities:
-- Participate in meetings listed on the [Community Calendar](https://meet.layer5.io).
-- Watch recorded meetings and presentations in the [Community Playlist](https://www.youtube.com/playlist?list=PL3A-A6hPO2IMPPqVjuzgqNU5xwnFFn3n0).
-- Get started by submitting the [Newcomer Form](https://layer5.io/newcomer) .to gain access to community resources and tools.
-- If you have questions, join the [Community Slack](https://slack.layer5.io) or ask in the [Discussion Forum](https://discuss.layer5.io/).
-
-
 <div>&nbsp;</div>
 
 ## Join the Layer5 community!
