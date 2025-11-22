@@ -1,8 +1,8 @@
 <p style="text-align:center;" align="center">
       <picture align="center">
-         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/layer5io/recognition/master/.github/assets/images/layer5/layer5-light-no-trim.svg" />
-         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/layer5io/recognition/master/.github/assets/images/layer5/layer5-no-trim.svg" />
-         <img align="center" src="https://raw.githubusercontent.com/layer5io/recognition/master/.github/assets/images/layer5/layer5-no-trim.svg" alt="Layer5 logo" width="45%"/>
+         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/layer5io/recognition/master/.github/readme/images/layer5-light-no-trim.svg" />
+         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/layer5io/recognition/master/.github/readme/images/layer5-no-trim.svg" />
+         <img align="center" src="https://raw.githubusercontent.com/layer5io/recognition/master/.github/readme/images/layer5-no-trim.svg" alt="Layer5 logo" width="45%"/>
       </picture>
 </p>
 
