@@ -1,8 +1,68 @@
-area/learning-paths:
+area/badges:
 - changed-files:
   - any-glob-to-any-file:
-    - "content/en/learning-paths/**/*"
-area/challenges:
+    - "src/badgesInfo.json"
+    - "src/assets/**/*"
+    - "static/assets/**/*"
+
+area/ui-components:
 - changed-files:
   - any-glob-to-any-file:
-    - "content/en/challenges/**/*"
+    - "src/reusecore/**/*"
+    - "src/sitecomponents/**/*"
+
+area/pages:
+- changed-files:
+  - any-glob-to-any-file:
+    - "src/pages/**/*"
+
+area/styling:
+- changed-files:
+  - any-glob-to-any-file:
+    - "src/fonts.css"
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.sass"
+
+area/build-config:
+- changed-files:
+  - any-glob-to-any-file:
+    - "gatsby-*.js"
+    - "package.json"
+    - "package-lock.json"
+    - "Makefile"
+
+area/documentation:
+- changed-files:
+  - any-glob-to-any-file:
+    - "README.md"
+    - "CONTRIBUTING*.md"
+    - "CODE_OF_CONDUCT.md"
+    - "SECURITY.md"
+    - "LICENSE"
+
+area/ci-cd:
+- changed-files:
+  - any-glob-to-any-file:
+    - ".github/workflows/**/*"
+    - ".github/actions/**/*"
+    - "script.sh"
+
+area/configuration:
+- changed-files:
+  - any-glob-to-any-file:
+    - ".github/**/*"
+    - ".gitignore"
+    - "CNAME"
+    - "robots.txt"
+
+area/services:
+- changed-files:
+  - any-glob-to-any-file:
+    - "src/services/**/*"
+
+area/utilities:
+- changed-files:
+  - any-glob-to-any-file:
+    - "utils/**/*"
+    - "install/**/*"
