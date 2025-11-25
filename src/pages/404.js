@@ -1,26 +1,14 @@
 import * as React from "react"
-import { graphql } from "gatsby"
 
-
-const NotFoundPage = ({ data, location }) => {
+const NotFoundPage = ({ location }) => {
   return (
     <>
       <h1>404: Not Found</h1>
-      <p>Please take a momement to let us know.</p>
+      <p>Please take a moment to let us know.</p>
     </>
   )
 }
 
-export const Head = () => <div> 404: Not Found </div>
+export const Head = () => <title>404: Not Found</title>
 
 export default NotFoundPage
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

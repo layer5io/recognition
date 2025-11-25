@@ -7,19 +7,7 @@ const toggleStyle = {
 
 export const Toggle = ({ theme, toggleTheme, height, width }) => {
   return (
-    <button 
-      className="themeToggle" 
-      onClick={toggleTheme} 
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleTheme();
-        }
-      }}
-      style={{...toggleStyle, background: 'none', border: 'none'}}
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-      type="button"
-    >
+    <div className="themeToggle" onClick={toggleTheme} style={toggleStyle}>
       {theme === "dark" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +47,6 @@ export const Toggle = ({ theme, toggleTheme, height, width }) => {
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
       )}
-    </button>
+    </div>
   );
 };

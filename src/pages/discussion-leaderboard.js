@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TableComponent from '../sitecomponents/Leaderboard/Table';
-import { useFetchLeaderBoard } from '../api/leaderboard.api.client';
+import { useFetchLeaderBoard } from '../services/leaderboard.api.client';
 import { useDarkMode } from '../sitecomponents/useDarkMode';
 import { ThemeProvider } from 'styled-components';
 import layer5LeaderboardLightMode from '../assets/images/layer5/Layer5_Learderboard_light.png';
@@ -16,7 +16,7 @@ import Header from '../sitecomponents/Leaderboard/Header';
 const LeaderBoard = () => {
   const [theme, toggleTheme] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
-  const [showSignUpButton] = useState(true);
+  const [showSignUpButton, setShowSignUpButton] = useState(true);
   const {
     leaderBoard,
     leadColumns,

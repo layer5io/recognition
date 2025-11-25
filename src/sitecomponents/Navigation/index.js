@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Header } from "./Navigation.styles";
 import { Toggle } from "../Toggle";
 import axios from "axios";
@@ -9,7 +9,7 @@ import LogoutIcon from "./LogoutIcon";
 function Navigation({ theme, toggleTheme, showSignUpButton, logo }) {
   const [openNav, setOpenNav] = useState(false);
 
-  const [userData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   function getCookieValue(cookieName) {
@@ -48,6 +48,7 @@ function Navigation({ theme, toggleTheme, showSignUpButton, logo }) {
           throw new Error("Network response was not ok");
         }
 
+        const data = response.data;
         // setUserData(data);
       } catch (error) {
         console.error("There was a problem with your fetch operation:", error);

@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FiLink } from 'react-icons/fi';
+import CertificationProgram from "../../../static/assets/badges/certification-program/certification-program.png";
+import MeshMasterCertified from "../../../static/assets/badges/meshmaster-certified/meshmaster-certified.png";
 import CertifiedMesheryContributor from "../../../static/assets/badges/certified-meshery-contributor/certified-meshery-contributor.png";
 import CertifiedMesheryAssociate from "../../../static/assets/badges/certified-meshery-associate/certified-meshery-associate.png";
 import CertifiedMesheryProfessional from "../../../static/assets/badges/certified-meshery-professional/certified-meshery-professional.png";

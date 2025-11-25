@@ -152,18 +152,7 @@ function Table({ data, columns, loading, noData, setOption, option, setName }) {
                               className: header.column.getCanSort()
                                 ? 'cursor-pointer select-none'
                                 : '',
-                              onClick: header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined,
-                              onKeyDown: header.column.getCanSort() ? (e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                  e.preventDefault();
-                                  header.column.getToggleSortingHandler()(e);
-                                }
-                              } : undefined,
-                              tabIndex: header.column.getCanSort() ? 0 : undefined,
-                              role: header.column.getCanSort() ? 'button' : undefined,
-                              'aria-label': header.column.getCanSort() 
-                                ? `Sort by ${header.column.columnDef.header}` 
-                                : undefined,
+                              onClick: header.column.getToggleSortingHandler(),
                             }}
                           >
                             {flexRender(

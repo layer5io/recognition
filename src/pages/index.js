@@ -209,7 +209,7 @@ const GithubLogoContainer = styled.div`
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
-  const [showSignUpButton] = useState(true);
+  const [showSignUpButton, setShowSignUpButton] = useState(true);
   const fillColor = theme === 'light' ? '#24292F' : '#ffffff';
   const queryClient = new QueryClient();
   const Logo = theme === 'light' ? layer5Logo : layer5LogoLight;
@@ -301,13 +301,13 @@ const App = () => {
                             Copy the embed code that's displayed
                           </StepItem>
                           <StepItem theme={theme}>
-                            Paste the code in your GitHub profile README to <a href="https://github.com/mascot-five" target="_blank" rel="noreferrer">showcase your achievement</a>
+                            Paste the code in your GitHub profile README to <a href="https://github.com/mascot-five" target="_blank">showcase your achievement</a>
                           </StepItem>
                         </StepsList>
                       </DisplayBadgeSteps>
                     </DisplayBadge>
                     
-                    <a href="https://github.com/mascot-five" target="_blank" rel="noreferrer"><GithubLogoContainer theme={theme}>
+                    <a href="https://github.com/mascot-five" target="_blank"><GithubLogoContainer theme={theme}>
                       <GithubLogo
                         fillColor={fillColor}
                         width="8rem"
