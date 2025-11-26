@@ -27,14 +27,21 @@ jobs:
           unzip public-dir.zip
           rm -f public-dir.zip
 
+      - name: Debug - Check public directory
+        run: |
+          echo "Contents of public directory:"
+          ls -la public/
+          echo "Total size of public directory:"
+          du -sh public/
+
       - name: Deploy to Netlify
         id: netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: 'public'
-          production-deploy: false
-          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
-          enable-commit-comment: false
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --dir=public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message="Deploy from GitHub Actions" > deploy_output.txt 2>&1
+          cat deploy_output.txt
+          DEPLOY_URL=$(grep -o 'Website draft URL: https://[^[:space:]]*' deploy_output.txt | sed 's/Website draft URL: //')
+          echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
