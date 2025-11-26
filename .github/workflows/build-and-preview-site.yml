@@ -55,17 +55,24 @@ jobs:
 
       - name: Extract site
         if: github.event_name == 'pull_request'
-        run: unzip -q public-dir.zip
+        run: |
+          unzip -q public-dir.zip
+          # Ensure the extracted folder has the static files in a 'public' dir for the action
+          if [ -d "public-dir" ] && [ ! -d "public" ]; then
+            mv public-dir public
+          elif [ ! -d "public" ]; then
+            echo "Warning: Neither public nor public-dir found after extraction"
+          fi
 
       - name: Deploy Preview
         if: github.event_name == 'pull_request' && github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: public-dir   # ← this matches the folder created by your script.sh
+          source-dir: public
 
       - name: Remove Preview on Close
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: public-dir
+          source-dir: public
           remove: true
