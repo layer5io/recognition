@@ -66,13 +66,13 @@ jobs:
 
       - name: Deploy Preview
         if: github.event_name == 'pull_request' && github.event.action != 'closed'
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@v2
         with:
           source-dir: public
 
       - name: Remove Preview on Close
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@v2
         with:
           source-dir: public
           remove: true
