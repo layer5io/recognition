@@ -2,14 +2,22 @@ name: Build and Preview Site
 on:
   pull_request:
     branches: [master]
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+    
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  site-preview:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install and Build 🔧
         run: |
@@ -32,3 +40,32 @@ jobs:
           name: public-dir
           path: public-dir.zip
           retention-days: 1
+
+  preview:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Download pre-built site
+        if: github.event_name == 'pull_request'
+        uses: actions/download-artifact@v4
+        with:
+          name: public-dir
+          path: .
+
+      - name: Extract site
+        if: github.event_name == 'pull_request'
+        run: unzip -q public-dir.zip
+
+      - name: Deploy Preview
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: public-dir   # ← this matches the folder created by your script.sh
+
+      - name: Remove Preview on Close
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: public-dir
+          remove: true
