@@ -9,6 +9,7 @@ on:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -27,6 +28,26 @@ jobs:
           unzip public-dir.zip
           rm -f public-dir.zip
 
+      - name: Verify Site Directory
+        run: |
+          echo "Contents of current directory:"
+          ls -la
+          echo "Contents of public directory:"
+          ls -la public/
+          echo "HTML files in public:"
+          find public -name "*.html" | head -5
+
+      - name: Debug Netlify Configuration
+        run: |
+          echo "Checking Netlify configuration..."
+          echo "NETLIFY_SITE_ID length: ${#NETLIFY_SITE_ID}"
+          echo "NETLIFY_AUTH_TOKEN length: ${#NETLIFY_AUTH_TOKEN}"
+          echo "Site ID (first 8 chars): ${NETLIFY_SITE_ID:0:8}..."
+          echo "Auth token (first 8 chars): ${NETLIFY_AUTH_TOKEN:0:8}..."
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
       - name: Deploy to Netlify
         id: netlify
         uses: nwtgck/actions-netlify@v3
@@ -34,7 +55,10 @@ jobs:
           publish-dir: 'public'
           production-deploy: false
           github-token: ${{ secrets.GH_ACCESS_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
           enable-commit-comment: false
+          overwrites-pull-request-comment: false
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

@@ -14,6 +14,7 @@ git remote add upstream https://github.com/layer5io/meshery.git
 ``` 
 ("meshery" is used as the example repo. Be sure to reference the _actual_ repo you're contributing to e.g. "meshery-linkerd").
 
+
 ## Verify the new remote named 'upstream'
 ```
 git remote -v
