@@ -20,10 +20,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install and Build 🔧
+        env:
+          PATH_PREFIX: /recognition/pr-preview/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
           node -v
-          npm run build
+          npm run build -- --prefix-paths
 
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
@@ -45,6 +47,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
@@ -72,6 +77,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -79,3 +85,4 @@ jobs:
         with:
           source-dir: public
           remove: true
+          token: ${{ secrets.GITHUB_TOKEN }}

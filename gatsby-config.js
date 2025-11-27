@@ -2,6 +2,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+  pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Layer5 Recognition Program`,
     description: `Showcasing Your Achievements as a User and a Contributor`,
