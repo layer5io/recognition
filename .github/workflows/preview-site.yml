@@ -28,15 +28,6 @@ jobs:
           unzip public-dir.zip
           rm -f public-dir.zip
 
-      - name: Verify Site Directory
-        run: |
-          echo "Contents of current directory:"
-          ls -la
-          echo "Contents of public directory:"
-          ls -la public/
-          echo "HTML files in public:"
-          find public -name "*.html" | head -5
-
       - name: Deploy to Netlify
         id: netlify
         uses: nwtgck/actions-netlify@v3
