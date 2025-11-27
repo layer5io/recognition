@@ -2,18 +2,10 @@ name: Build and Preview Site
 on:
   pull_request:
     branches: [master]
-    types: [opened, synchronize, reopened, closed]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-    
-permissions:
-  contents: write
-  pull-requests: write
+    types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  site-preview:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -40,42 +32,3 @@ jobs:
           name: public-dir
           path: public-dir.zip
           retention-days: 1
-
-  preview:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v6
-        
-      - name: Download pre-built site
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/download-artifact@v4
-        with:
-          name: public-dir
-          path: .
-
-      - name: Extract site
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        run: |
-          unzip -q public-dir.zip
-          # Ensure the extracted folder has the static files in a 'public' dir for the action
-          if [ -d "public-dir" ] && [ ! -d "public" ]; then
-            mv public-dir public
-          elif [ ! -d "public" ]; then
-            echo "Warning: Neither public nor public-dir found after extraction"
-          fi
-
-      - name: Deploy Preview
-        if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: rossjrw/pr-preview-action@v1.6.3
-        with:
-          source-dir: public
-
-      - name: Remove Preview on Close
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: rossjrw/pr-preview-action@v1.6.3
-        with:
-          source-dir: public
-          remove: true
