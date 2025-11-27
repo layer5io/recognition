@@ -12,7 +12,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@4
 
       - name: Download Site dir
         uses: dawidd6/action-download-artifact@v11
@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy to Netlify
         id: netlify
-        uses: nwtgck/actions-netlify@v3
+        uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: 'public'
           production-deploy: false
