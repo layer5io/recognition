@@ -2,8 +2,8 @@ name: Build and Preview Site
 
 on:
   pull_request_target:
-    branches: [master]
-    types: [opened, synchronize, reopened, closed]
+    branches: [ master ]
+    types: [ opened, synchronize, reopened, closed ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,12 +34,12 @@ jobs:
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
         with:
-          target: ./public/**/*.html  
+          target: ./public/**/*.html
 
-      - name: Zip Site
+      - name: Zip Site 📦
         run: bash script.sh
 
-      - name: Upload files
+      - name: Upload Files ⬆️
         uses: actions/upload-artifact@v4
         with:
           name: public-dir
@@ -49,37 +49,39 @@ jobs:
   preview:
     needs: build
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-        
-      - name: Download pre-built site
+
+      - name: Download Pre-built Site ⬇️
         uses: actions/download-artifact@v4
         with:
           name: public-dir
           path: .
 
-      - name: Extract site
+      - name: Extract Site 📂
         run: |
           unzip -q public-dir.zip
           if [ -d "public-dir" ] && [ ! -d "public" ]; then
             mv public-dir public
           fi
 
-      - name: Deploy Preview
+      - name: Deploy Preview 🚀
         if: github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
           preview-branch: gh-pages
           umbrella-dir: pr-preview
+          comment: true
+          # 'action: auto' enables automatic deployment of previews for pull requests
+          action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Remove Preview on Close
+      - name: Remove Preview on Close 🧹
         if: github.event.action == 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
