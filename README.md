@@ -37,7 +37,7 @@ The Layer5 Recognition Program is an initiative by the Layer5 open source commun
 
 - **No Limits on Earnings**: Participants can collect as many badges as they qualify for, encouraging ongoing engagement.
 - **Types of Badges**: Badges cover diverse roles and contributions, including:
-  - **Technical Contributions**: E.g., "Patterns" for impactful work on the Cloud Native Patterns project, or "Docs" for Meshery documentation improvements.
+  - **Technical Contributions**: E.g., "[Patterns](https://cloud.layer5.io/catalog)" for impactful work on the Cloud Native Patterns project, or "Docs" for Meshery documentation improvements.
   - **Design and Outreach**: E.g., "Design Pioneer" for creating user flows or visuals, or badges for Hacktoberfest participation and event promotion.
   - **Writing and Community Building**: E.g., "Writer's Program" for publishing two or more articles, blog posts, or docs.
   - **Certifications**: e.g. [Certified Meshery Contributor](https://www.cncf.io/blog/2025/10/27/announcing-the-certified-meshery-contributor-cmc/)
