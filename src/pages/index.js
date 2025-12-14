@@ -330,7 +330,7 @@ const App = () => {
             
                   <BadgePreview theme={theme}>
                     <PreviewText theme={theme}>
-                      Your badge will appear in your GitHub profile, showcasing your Layer5 community contributions!
+                      Your badge will appear in your GitHub profile, showcasing your milestones!
                     </PreviewText>
                   </BadgePreview>
                 </BannerContent>
