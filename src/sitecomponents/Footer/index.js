@@ -197,7 +197,7 @@ const Footer = () => {
       </div>
       <div className="container flex copyright">
         <div className="text">
-          &copy; {new Date().getFullYear()}- Layer5, Inc. All rights reserved.
+          &copy; {new Date().getFullYear()} Layer5, Inc. All rights reserved.
         </div>
         <div className="text">Empowering engineers all around the world</div>
         <div className="text">
