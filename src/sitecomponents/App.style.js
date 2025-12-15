@@ -341,8 +341,12 @@ export const Main = styled.main`
     margin: 1rem;
   }
   .faq {
-    text-align: center;
+    text-align: left;
     margin: 0rem auto 0rem auto;
+    
+    h2 {
+      text-align: left;
+    }
   }
   @media screen and (max-width: 1230px) {
     .display-badge {

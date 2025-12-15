@@ -267,10 +267,18 @@ const App = () => {
                 for details of when and how each badge is awarded.
               </p>     
               <section className="faq">
-              {/* <h1>Frequently Asked Questions</h1> */}
+              <h2>General</h2>
                 <Faq
                   category={['Layer5 Badges']}
-                  display-category-title={'false'}
+                  display-category-title={'true'}
+                />
+              </section>
+
+                <section className="faq">
+              <h2>Certifications</h2>
+                <Faq
+                  category={['certifications']}
+                  display-category-title={'true'}
                 />
               </section>
               
@@ -328,6 +336,7 @@ const App = () => {
               {/* <p className="caption">Launch and learn with Meshery</p>
             <p className="byline">The cloud native playground contains a set of learning paths that incorporate an application networking centric curriculum featuring training on 200+ integrations.</p> */}
             
+
                   <BadgePreview theme={theme}>
                     <PreviewText theme={theme}>
                       Your badge will appear in your GitHub profile, showcasing your milestones!
