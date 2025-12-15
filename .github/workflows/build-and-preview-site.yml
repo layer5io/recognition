@@ -34,7 +34,7 @@ jobs:
 
       - name: Zip Site
         run: |
-          bash script.sh
+          bash .github/workflows/script.sh
 
       - name: Upload files
         uses: actions/upload-artifact@master
