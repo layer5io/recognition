@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const FaqSectionWrapper = styled.section`
-  margin: 2.5rem auto;
+  margin: 1.75rem auto 2.5rem auto;
   position: relative;
   overflow: hidden;
 
@@ -14,11 +14,11 @@ const FaqSectionWrapper = styled.section`
     border-color: transparent;
   }
   .reusecore__accordion {
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
   }
   .accordion__item {
     .accordion__header {
-      padding:0;
+      padding:0.5px;
       background: #00b39f;
       h5 {
         font-weight: 700;
