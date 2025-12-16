@@ -82,8 +82,8 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          preview-branch: gh-pages
           umbrella-dir: preview-badges
-          branch: site
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
@@ -91,7 +91,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          preview-branch: gh-pages
           umbrella-dir: preview-badges
-          branch: site
-          remove: true
+          action: remove
           token: ${{ secrets.GITHUB_TOKEN }}
