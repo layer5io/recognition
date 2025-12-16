@@ -26,6 +26,10 @@ jobs:
           npm install
           node -v
           npm run build -- --prefix-paths
+          if [ -f "public/CNAME" ]; then
+            rm public/CNAME
+            echo "CNAME file removed for PR preview"
+          fi
 
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
