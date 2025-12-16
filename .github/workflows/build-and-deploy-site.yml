@@ -25,4 +25,4 @@ jobs:
           folder: public # The folder the action should deploy.
           clean: true
           clean-exclude: |
-            Preview-Badges/**
+            preview-badges/**
