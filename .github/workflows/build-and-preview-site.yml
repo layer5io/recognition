@@ -76,7 +76,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
-          preview-branch: site
+          preview-branch: gh-page
           umbrella-dir: preview-badges
           action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
