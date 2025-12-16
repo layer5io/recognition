@@ -23,7 +23,7 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          PATH_PREFIX: /recognition/preview-badges/pr-${{ github.event.pull_request.number }}
+          PATH_PREFIX: /preview-badges/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
           npm run build -- --prefix-paths
@@ -83,6 +83,7 @@ jobs:
         with:
           source-dir: public
           umbrella-dir: preview-badges
+          branch: site
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
@@ -91,5 +92,6 @@ jobs:
         with:
           source-dir: public
           umbrella-dir: preview-badges
+          branch: site
           remove: true
           token: ${{ secrets.GITHUB_TOKEN }}
