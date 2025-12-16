@@ -15,7 +15,7 @@ const AvatarContainer = styled.div`
     height: 100%;
     border-radius: 50%;
   }
-`;
+`;  
 
 const AvatarText = styled.span`
   color: ${props => props.textColor || '#fff'};
