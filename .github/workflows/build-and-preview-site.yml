@@ -32,10 +32,6 @@ jobs:
         with:
           target: ./public/**/*.html  
 
-      - name: Zip Site
-        run: |
-          bash script.sh
-
       - name: Upload files
         uses: actions/upload-artifact@master
         with:
