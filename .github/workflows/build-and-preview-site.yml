@@ -77,7 +77,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
 
       - name: Remove Preview on Close
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -85,4 +85,4 @@ jobs:
         with:
           source-dir: public
           remove: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
