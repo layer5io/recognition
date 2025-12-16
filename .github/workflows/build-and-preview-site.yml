@@ -74,6 +74,18 @@ jobs:
             echo "Warning: Neither public nor public-dir found after extraction"
           fi
 
+      - name: Remove CNAME from preview build
+        if: github.event_name == 'pull_request_target'
+        run: |
+          # Remove CNAME from the built site to prevent DNS redirect to badges.layer5.io
+          # This ensures PR previews use the default GitHub Pages domain
+          if [ -f public/CNAME ]; then
+            rm public/CNAME
+            echo "CNAME removed from preview build to prevent DNS redirect"
+          else
+            echo "No CNAME file found in public directory"
+          fi
+
       - name: Deploy Preview
         if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
