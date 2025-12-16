@@ -15,6 +15,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
@@ -26,10 +27,6 @@ jobs:
           npm install
           node -v
           npm run build -- --prefix-paths
-          if [ -f "public/CNAME" ]; then
-            rm public/CNAME
-            echo "CNAME file removed for PR preview"
-          fi
 
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
@@ -50,43 +47,84 @@ jobs:
   preview:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
     permissions:
       contents: write
       pull-requests: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
-        
+      
       - name: Download pre-built site
-        if: github.event_name == 'pull_request'
         uses: actions/download-artifact@v4
         with:
           name: public-dir
           path: .
 
       - name: Extract site
-        if: github.event_name == 'pull_request'
         run: |
           unzip -q public-dir.zip
-          # Ensure the extracted folder has the static files in a 'public' dir for the action
           if [ -d "public-dir" ] && [ ! -d "public" ]; then
             mv public-dir public
           elif [ ! -d "public" ]; then
             echo "Warning: Neither public nor public-dir found after extraction"
           fi
 
-      - name: Deploy Preview
-        if: github.event_name == 'pull_request' && github.event.action != 'closed'
-        uses: rossjrw/pr-preview-action@v1.6.3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          source-dir: public
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: pr-preview/pr-${{ github.event.pull_request.number }}
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Remove Preview on Close
-        if: github.event_name == 'pull_request' && github.event.action == 'closed'
-        uses: rossjrw/pr-preview-action@v1.6.3
+      - name: Comment PR with preview link
+        uses: actions/github-script@v7
         with:
-          source-dir: public
-          remove: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const previewUrl = `https://layer5io.github.io/recognition/pr-preview/pr-${prNumber}/`;
+            
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 Preview deployed to: ${previewUrl}`
+            });
+
+  cleanup:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+
+      - name: Remove PR preview
+        run: |
+          rm -rf pr-preview/pr-${{ github.event.pull_request.number }}
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Remove preview for PR #${{ github.event.pull_request.number }}" || echo "Nothing to commit"
+          git push
+
+      - name: Comment cleanup on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🧹 Preview deployment has been cleaned up.'
+            });
