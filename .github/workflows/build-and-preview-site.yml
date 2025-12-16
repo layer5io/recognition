@@ -32,6 +32,10 @@ jobs:
         with:
           target: ./public/**/*.html  
 
+      - name: Zip Site
+        run: |
+          bash .github/workflows/script.sh
+
       - name: Upload files
         uses: actions/upload-artifact@master
         with:
