@@ -2,8 +2,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
-  pathPrefix: process.env.PATH_PREFIX || "/recognition",
-  assetPrefix: process.env.PATH_PREFIX || "/recognition",
+  pathPrefix: "/recognition",
   siteMetadata: {
     title: `Layer5 Recognition Program`,
     description: `Showcasing Your Achievements as a User and a Contributor`,
@@ -24,7 +23,7 @@ module.exports = {
       options: {
         name: "gatsby-starter-default",
         short_name: "starter",
-        start_url: `${process.env.PATH_PREFIX || "/recognition"}/`,
+        start_url: "/recognition/",
         background_color: "#3c494f",
         theme_color: "#00b39f",
         display: "minimal-ui",

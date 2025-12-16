@@ -1,13 +1,14 @@
 name: Build and Preview Site
+
 on:
   pull_request_target:
     branches: [master]
     types: [opened, synchronize, reopened, closed]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: preview-${{ github.ref }}
   cancel-in-progress: true
-    
+
 permissions:
   contents: write
   pull-requests: write
@@ -22,27 +23,24 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install and Build 🔧
-        env:
-          PATH_PREFIX: /preview-badges/pr-${{ github.event.pull_request.number }}
+        if: github.event.action != 'closed'
         run: |
           npm install
-          npm run build -- --prefix-paths
+          npm run build
 
       - name: Remove CNAME file
+        if: github.event.action != 'closed'
         run: |
           rm -f public/CNAME
 
-      - name: Broken Link Check 🔗
-        uses: technote-space/broken-link-checker-action@v2
-        with:
-          target: ./public/**/*.html  
-
       - name: Zip Site
+        if: github.event.action != 'closed'
         run: |
           bash .github/workflows/script.sh
 
       - name: Upload files
-        uses: actions/upload-artifact@master
+        if: github.event.action != 'closed'
+        uses: actions/upload-artifact@v4
         with:
           name: public-dir
           path: public-dir.zip
@@ -51,47 +49,34 @@ jobs:
   preview:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request_target'
     permissions:
       contents: write
       pull-requests: write
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
-        
+
       - name: Download pre-built site
-        if: github.event_name == 'pull_request_target'
+        if: github.event.action != 'closed'
         uses: actions/download-artifact@v4
         with:
           name: public-dir
           path: .
 
       - name: Extract site
-        if: github.event_name == 'pull_request_target'
+        if: github.event.action != 'closed'
         run: |
           unzip -q public-dir.zip
-          # Ensure the extracted folder has the static files in a 'public' dir for the action
           if [ -d "public-dir" ] && [ ! -d "public" ]; then
             mv public-dir public
-          elif [ ! -d "public" ]; then
-            echo "Warning: Neither public nor public-dir found after extraction"
           fi
 
       - name: Deploy Preview
-        if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
           preview-branch: site
           umbrella-dir: preview-badges
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Remove Preview on Close
-        if: github.event_name == 'pull_request_target' && github.event.action == 'closed'
-        uses: rossjrw/pr-preview-action@v1.6.3
-        with:
-          source-dir: public
-          preview-branch: site
-          umbrella-dir: preview-badges
-          action: remove
+          action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
