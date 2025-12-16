@@ -26,7 +26,6 @@ jobs:
           PATH_PREFIX: /preview-badges/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
-          node -v
           npm run build -- --prefix-paths
 
       - name: Remove CNAME file

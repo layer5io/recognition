@@ -23,7 +23,7 @@ module.exports = {
       options: {
         name: "gatsby-starter-default",
         short_name: "starter",
-        start_url: "/",
+        start_url: `${process.env.PATH_PREFIX || "/recognition"}/`,
         background_color: "#3c494f",
         theme_color: "#00b39f",
         display: "minimal-ui",
