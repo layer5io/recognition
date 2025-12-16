@@ -82,7 +82,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
-          preview-branch: gh-pages
+          preview-branch: site
           umbrella-dir: preview-badges
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -91,7 +91,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
-          preview-branch: gh-pages
+          preview-branch: site
           umbrella-dir: preview-badges
           action: remove
           token: ${{ secrets.GITHUB_TOKEN }}
