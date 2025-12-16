@@ -20,3 +20,4 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
+          token: ${{ secrets.GITHUB_TOKEN }}
