@@ -23,7 +23,7 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          PATH_PREFIX: /recognition/pr-preview/pr-${{ github.event.pull_request.number }}
+          PATH_PREFIX: /recognition/Preview-Badges/pr-preview/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
           node -v
@@ -79,6 +79,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          umbrella-dir: Preview-Badges
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
@@ -86,5 +87,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          umbrella-dir: Preview-Badges
           remove: true
           token: ${{ secrets.GITHUB_TOKEN }}
