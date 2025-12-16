@@ -3,6 +3,7 @@
  */
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX || "/recognition",
+  assetPrefix: process.env.PATH_PREFIX || "/recognition",
   siteMetadata: {
     title: `Layer5 Recognition Program`,
     description: `Showcasing Your Achievements as a User and a Contributor`,

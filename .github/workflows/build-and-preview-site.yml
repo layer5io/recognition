@@ -81,7 +81,7 @@ jobs:
         if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
-          source-dir: public
+          source-dir: public/preview-badges/pr-${{ github.event.pull_request.number }}
           umbrella-dir: preview-badges
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -89,7 +89,7 @@ jobs:
         if: github.event_name == 'pull_request_target' && github.event.action == 'closed'
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
-          source-dir: public
+          source-dir: public/preview-badges/pr-${{ github.event.pull_request.number }}
           umbrella-dir: preview-badges
           remove: true
           token: ${{ secrets.GITHUB_TOKEN }}
