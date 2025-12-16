@@ -23,7 +23,7 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          PATH_PREFIX: /recognition/pr-preview/pr-${{ github.event.pull_request.number }}
+          PATH_PREFIX: /Preview-Badges/pr-preview/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
           node -v
