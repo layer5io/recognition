@@ -1,16 +1,16 @@
-name: Build Preview Site
+name: Build and Preview Site
 on:
-  pull_request:
+  pull_request_target:
     branches: [master]
     types: [opened, synchronize, reopened, closed]
 
 concurrency:
-  group: pr-preview-build-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-# Only read permissions for building (safe for forks)
+    
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install and Build 🔧
         env:
@@ -37,23 +39,52 @@ jobs:
           bash .github/workflows/script.sh
 
       - name: Upload files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@master
         with:
-          name: public-dir-pr-${{ github.event.pull_request.number }}
+          name: public-dir
           path: public-dir.zip
           retention-days: 1
-      
-      # Save PR metadata for the deploy workflow
-      - name: Save PR metadata
-        run: |
-          mkdir -p ./pr-metadata
-          echo "${{ github.event.pull_request.number }}" > ./pr-metadata/pr_number
-          echo "${{ github.event.action }}" > ./pr-metadata/pr_action
-          echo "${{ github.event.pull_request.head.sha }}" > ./pr-metadata/pr_sha
-      
-      - name: Upload PR metadata
-        uses: actions/upload-artifact@v4
+
+  preview:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request_target'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+        
+      - name: Download pre-built site
+        if: github.event_name == 'pull_request_target'
+        uses: actions/download-artifact@v4
         with:
-          name: pr-metadata-${{ github.event.pull_request.number }}
-          path: pr-metadata/
-          retention-days: 1
+          name: public-dir
+          path: .
+
+      - name: Extract site
+        if: github.event_name == 'pull_request_target'
+        run: |
+          unzip -q public-dir.zip
+          # Ensure the extracted folder has the static files in a 'public' dir for the action
+          if [ -d "public-dir" ] && [ ! -d "public" ]; then
+            mv public-dir public
+          elif [ ! -d "public" ]; then
+            echo "Warning: Neither public nor public-dir found after extraction"
+          fi
+
+      - name: Deploy Preview
+        if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
+        uses: rossjrw/pr-preview-action@v1.6.3
+        with:
+          source-dir: public
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove Preview on Close
+        if: github.event_name == 'pull_request_target' && github.event.action == 'closed'
+        uses: rossjrw/pr-preview-action@v1.6.3
+        with:
+          source-dir: public
+          remove: true
+          token: ${{ secrets.GITHUB_TOKEN }}
