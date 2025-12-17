@@ -42,7 +42,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a className="category-link" href="https://github.com/layer5io/">
+              <a className="category-link" href="https://github.com/layer5io/recognition">
                 <img src={GithubIcon} alt="GitHub Icon" />
                 Github
               </a>
