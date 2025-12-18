@@ -29,10 +29,6 @@ jobs:
           node -v
           npm run build -- --prefix-paths
 
-      - name: Remove CNAME file
-        run: |
-          rm -f public/CNAME
-
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
         with:
