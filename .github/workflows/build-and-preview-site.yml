@@ -23,11 +23,15 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          PATH_PREFIX: /recognition/pr-preview/pr-${{ github.event.pull_request.number }}
+          PATH_PREFIX: /recognition/preview-badges/pr-${{ github.event.pull_request.number }}
         run: |
           npm install
           node -v
           npm run build -- --prefix-paths
+
+      - name: Remove CNAME file
+        run: |
+          rm -f public/CNAME
 
       - name: Broken Link Check 🔗
         uses: technote-space/broken-link-checker-action@v2
@@ -79,6 +83,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          umbrella-dir: preview-badges
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
@@ -86,5 +91,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          umbrella-dir: preview-badges
           remove: true
           token: ${{ secrets.GITHUB_TOKEN }}
