@@ -73,6 +73,8 @@ jobs:
           elif [ ! -d "public" ]; then
             echo "Warning: Neither public nor public-dir found after extraction"
           fi
+          # Ensure CNAME is removed from the preview
+          rm -f public/CNAME
 
       - name: Deploy Preview
         if: github.event.action != 'closed'
