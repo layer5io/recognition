@@ -41,7 +41,7 @@ const Faq = (props) => {
 
   return (
     <FaqSectionWrapper>
-        <Accordion allowMultipleExpanded="true" allowZeroExpanded="true">
+        <Accordion allowMultipleExpanded={false} allowZeroExpanded={true}>
           {faq_keys.map((key) => (
             <> 
               {faqs[key].map((faq, index) => (
@@ -58,11 +58,13 @@ const Faq = (props) => {
                     </IconWrapper>
                   </AccordionTitle>
                   <AccordionBody>
-                    {
-                      faq.answer.length >= 1 ? <ul>{faq.answer.map((ans, id) => (<li key={id}><p key={id}>{ans}</p></li>))}</ul> : <br />
-                    }
-                    <div className="faqbutton">
-                      {faq.link && <Button primary className="faqbutton" url={faq.link} title={faq.linktext} external={false} />}
+                    <div className="inner">
+                      {
+                        faq.answer.length >= 1 ? <ul>{faq.answer.map((ans, id) => (<li key={id}><p key={id}>{ans}</p></li>))}</ul> : <br />
+                      }
+                      <div className="faqbutton">
+                        {faq.link && <Button primary className="faqbutton" url={faq.link} title={faq.linktext} external={false} />}
+                      </div>
                     </div>
                   </AccordionBody>
                 </AccordionItem>
