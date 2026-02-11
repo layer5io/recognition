@@ -8,15 +8,6 @@ import {
   AccordionItemPanel,
 } from "react-accessible-accordion";
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
 export const AccordionWrapper = styled(Accordion)``;
 
 export const AccordionItemWrapper = styled(AccordionItem)``;
@@ -56,9 +47,26 @@ export const AccordionItemButtonWrapper = styled(AccordionItemButton)`
   padding: 0.625rem 1.5rem 0.625rem 1.5rem;
   `;
 export const AccordionBodyWrapper = styled(AccordionItemPanel)`
-  animation: 0.35s ${fadeIn} ease-in;
-  &.accordion__body--hidden {
-    animation: 0.35s ${fadeIn} ease-in;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows ease 1.0s;
+
+  > .inner {
+      min-height: 0;
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.35s;
+  }
+
+  &[hidden] {
+      grid-template-rows: 0fr;
+
+      > .inner {
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.35s, visibility 0s 0.35s;
+      }
   }
 `;
 
