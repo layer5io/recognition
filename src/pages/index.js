@@ -271,6 +271,7 @@ const App = () => {
                 <Faq
                   category={['Layer5 Badges']}
                   display-category-title={'true'}
+                  theme={theme}
                 />
               </section>
 
@@ -279,6 +280,7 @@ const App = () => {
                 <Faq
                   category={['certifications']}
                   display-category-title={'true'}
+                  theme={theme}
                 />
               </section>
               
