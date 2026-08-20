@@ -91,7 +91,7 @@ jobs:
           # previews are being served at the default `pages-base-url`
           # if a cname is added, then the value of said custom domain must be given to `pages-base-url`
           umbrella-dir: preview-badges
-          target-branch: site
+          preview-branch: site
           qr-code: false
           comment: false
           action: ${{ needs.read-metadata.outputs.action == 'closed' && 'remove' || 'deploy' }}
