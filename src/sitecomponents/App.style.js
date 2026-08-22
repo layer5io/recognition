@@ -354,17 +354,30 @@ export const Main = styled.main`
     }
   }
   @media screen and (max-width: 768px) {
-    figure {
-      width: 90%;
-    }
-    max-width: 85%;
-    .display-badge-steps {
-      margin: 0;
-    }
-    .banner-logos h4 {
-      margin: 1rem;
-    }
+  figure {
+    width: 90%;
   }
+
+  max-width: 85%;
+
+  .program-logo {
+    float: none;
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    max-width: 180px;
+    width: auto;
+  }
+  .try-now-txt {
+    margin-top: 0;
+  }
+  .display-badge-steps {
+    margin: 0;
+  }
+
+  .banner-logos h4 {
+    margin: 1rem;
+  }
+}
   @media screen and (max-width: 568px) {
     figure {
       width: 100%;
