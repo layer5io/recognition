@@ -1,4 +1,5 @@
 import * as React from "react"
+import Seo from "../sitecomponents/SEO"
 
 const NotFoundPage = ({ location }) => {
   return (
@@ -9,6 +10,6 @@ const NotFoundPage = ({ location }) => {
   )
 }
 
-export const Head = () => <title>404: Not Found</title>
+export const Head = () => <Seo title="404: Not Found" pathname="/404" />
 
 export default NotFoundPage

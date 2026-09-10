@@ -12,6 +12,7 @@ import {
 } from '../sitecomponents/index.style';
 import Navigation from '../sitecomponents/Navigation';
 import Header from '../sitecomponents/Leaderboard/Header';
+import Seo from '../sitecomponents/SEO';
 
 const LeaderBoard = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -38,11 +39,6 @@ const LeaderBoard = () => {
     theme === 'light' ? layer5LeaderboardLightMode : layer5LeaderboardDarkMode;
   return (
     <>
-      <title>Layer5 LeaderBoard</title>
-      <meta
-        name="description"
-        content="Showcasing Your Achievements as a User and a Contributor"
-      />
       <ThemeProvider theme={themeMode}>
         <GlobalStyle />
         <Navigation
@@ -66,3 +62,7 @@ const LeaderBoard = () => {
 };
 
 export default LeaderBoard;
+
+export const Head = () => (
+  <Seo title="Layer5 Leaderboard" pathname="/discussion-leaderboard" />
+);
