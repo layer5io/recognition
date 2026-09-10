@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix } from 'gatsby';
 import defaultSocialImage from '../../assets/images/recognition-banner.png';
 
 // Intrinsic dimensions of `defaultSocialImage`. Update alongside the image so
@@ -41,7 +41,10 @@ const Seo = ({ title, description, image, pathname, children }) => {
   const seo = {
     title: title || metadata.title,
     description: description || metadata.description,
-    url: `${siteUrl}${path}`,
+    // Page routes need `withPrefix` for path-prefixed builds. Imported assets
+    // do not: webpack's publicPath already carries the prefix, so passing
+    // `defaultSocialImage` through `withPrefix` would apply it twice.
+    url: `${siteUrl}${withPrefix(path)}`,
     image: `${siteUrl}${image || defaultSocialImage}`,
     twitter: metadata.social?.twitter,
   };
