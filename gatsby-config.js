@@ -7,6 +7,9 @@ module.exports = {
     title: `Layer5 Recognition Program`,
     description: `Showcasing Your Achievements as a User and a Contributor`,
     siteUrl: `https://badges.layer5.io`,
+    social: {
+      twitter: `@layer5`,
+    },
   },
   plugins: [
     `gatsby-plugin-styled-components`,
