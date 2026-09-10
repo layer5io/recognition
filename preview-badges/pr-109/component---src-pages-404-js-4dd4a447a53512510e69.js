@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunklayer5_recognition_program=self.webpackChunklayer5_recognition_program||[]).push([[125],{23331:function(e,t,n){n.r(t),n.d(t,{Head:function(){return a}});var l=n(96540);const a=()=>l.createElement("title",null,"404: Not Found");t.default=({location:e})=>l.createElement(l.Fragment,null,l.createElement("h1",null,"404: Not Found"),l.createElement("p",null,"Please take a moment to let us know."))}}]);
-//# sourceMappingURL=component---src-pages-404-js-4dd4a447a53512510e69.js.map
