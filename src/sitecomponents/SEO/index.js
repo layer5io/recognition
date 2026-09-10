@@ -35,17 +35,22 @@ const Seo = ({ title, description, image, pathname, children }) => {
   const metadata = site.siteMetadata;
   const siteUrl = metadata.siteUrl.replace(/\/$/, '');
   // Gatsby serves pages with a trailing slash, so keep the canonical and
-  // `og:url` values in step with the URL that is actually shared.
+  // `og:url` values in step with the production URL that is actually shared.
   const path = (pathname || '/').replace(/\/?$/, '/');
 
   const seo = {
     title: title || metadata.title,
     description: description || metadata.description,
-    // Page routes need `withPrefix` for path-prefixed builds. Imported assets
-    // do not: webpack's publicPath already carries the prefix, so passing
-    // `defaultSocialImage` through `withPrefix` would apply it twice.
-    url: `${siteUrl}${withPrefix(path)}`,
-    image: `${siteUrl}${image || defaultSocialImage}`,
+    // Deliberately unprefixed. `pathPrefix` is only ever set by the PR preview
+    // workflow, which is an ephemeral deployment; production is served from the
+    // root of siteUrl. The canonical and og:url of a preview should therefore
+    // point at the production route, not at the preview path.
+    url: `${siteUrl}${path}`,
+    // Assets do need the prefix. An imported asset gets it from webpack's
+    // publicPath, so `defaultSocialImage` is already prefixed and must not be
+    // passed through `withPrefix` again; a caller-supplied path out of
+    // `static/` does not, so it goes through `withPrefix`.
+    image: `${siteUrl}${image ? withPrefix(image) : defaultSocialImage}`,
     twitter: metadata.social?.twitter,
   };
 
