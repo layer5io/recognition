@@ -36,7 +36,16 @@ const Seo = ({ title, description, image, pathname, children }) => {
   const siteUrl = metadata.siteUrl.replace(/\/$/, '');
   // Gatsby serves pages with a trailing slash, so keep the canonical and
   // `og:url` values in step with the production URL that is actually shared.
-  const path = (pathname || '/').replace(/\/?$/, '/');
+  // A page with no URL of its own omits `pathname` and gets neither tag: the
+  // 404 is served for every unknown path, so claiming `/404/` as its canonical
+  // would be a claim about a URL the visitor did not request.
+  const path = pathname ? pathname.replace(/\/?$/, '/') : null;
+
+  // Assets do need the prefix. An imported asset gets it from webpack's
+  // publicPath, so `defaultSocialImage` is already prefixed and must not be
+  // passed through `withPrefix` again; a caller-supplied path out of
+  // `static/` does not, so it goes through `withPrefix`.
+  const imageSrc = image ? withPrefix(image) : defaultSocialImage;
 
   const seo = {
     title: title || metadata.title,
@@ -45,12 +54,11 @@ const Seo = ({ title, description, image, pathname, children }) => {
     // workflow, which is an ephemeral deployment; production is served from the
     // root of siteUrl. The canonical and og:url of a preview should therefore
     // point at the production route, not at the preview path.
-    url: `${siteUrl}${path}`,
-    // Assets do need the prefix. An imported asset gets it from webpack's
-    // publicPath, so `defaultSocialImage` is already prefixed and must not be
-    // passed through `withPrefix` again; a caller-supplied path out of
-    // `static/` does not, so it goes through `withPrefix`.
-    image: `${siteUrl}${image ? withPrefix(image) : defaultSocialImage}`,
+    url: path && `${siteUrl}${path}`,
+    // Only a root-relative path is ours to qualify. `withPrefix` returns an
+    // absolute URL unchanged, and webpack inlines a small enough asset as a
+    // `data:` URI, so prepending siteUrl unconditionally would corrupt both.
+    image: imageSrc.startsWith('/') ? `${siteUrl}${imageSrc}` : imageSrc,
     twitter: metadata.social?.twitter,
   };
 
@@ -58,13 +66,13 @@ const Seo = ({ title, description, image, pathname, children }) => {
     <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
-      <link rel="canonical" href={seo.url} />
+      {seo.url && <link rel="canonical" href={seo.url} />}
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={metadata.title} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
-      <meta property="og:url" content={seo.url} />
+      {seo.url && <meta property="og:url" content={seo.url} />}
       <meta property="og:image" content={seo.image} />
       <meta property="og:image:alt" content={seo.title} />
       {!image && (
