@@ -16,6 +16,7 @@ import recognitionLogo from '../assets/images/recognition-program.png';
 import recognitionBanner from '../assets/images/recognition-banner.png';
 import '../fonts.css';
 import GithubLogo from './githubLogo';
+import Seo from '../sitecomponents/SEO';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import layer5Logo from '../assets/images/layer5/layer5-badges.png';
 import layer5LogoLight from '../assets/images/layer5/layer5-badges-white.png';
@@ -218,11 +219,6 @@ const App = () => {
   // };
   return (
     <>
-      <title>Layer5 Recognition Program</title>
-      <meta
-        name="description"
-        content="Showcasing Your Achievements as a User and a Contributor"
-      />
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={themeMode}>
           <GlobalStyle />
@@ -380,3 +376,5 @@ const App = () => {
 };
 
 export default App;
+
+export const Head = () => <Seo pathname="/" />;
