@@ -1,0 +1,145 @@
+name: Test Badge Evaluator (Dry-Run)
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "Target repository to evaluate (e.g. layer5io/sistent, meshery/meshery)"
+        required: true
+        type: string
+      pr_number:
+        description: "Merged Pull Request number in the target repository"
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  test-evaluation:
+    name: Dry-Run Historical PR Evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate authorized repository allowlist
+        env:
+          TARGET_REPO: ${{ inputs.repository }}
+        run: |
+          set -euo pipefail
+          NORMALIZED_REPO=$(echo "${TARGET_REPO}" | tr '[:upper:]' '[:lower:]')
+          case "${NORMALIZED_REPO}" in
+            "layer5io/sistent"|"meshery/meshery"|"meshery/meshery-operator"|"meshery/meshsync"|"layer5io/docs"|"meshery/meshery.io"|"layer5io/layer5")
+              echo "Repository '${TARGET_REPO}' is authorized for Track 2 badge automation."
+              ;;
+            *)
+              echo "::error::Repository '${TARGET_REPO}' is not an authorized Track 2 participating repository."
+              exit 1
+              ;;
+          esac
+
+      - name: Checkout recognition repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2 pinned SHA
+
+      - name: Verify PR status and collect metadata
+        id: collect-meta
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_REPO: ${{ inputs.repository }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          echo "Evaluating PR #${PR_NUMBER} from repository: ${TARGET_REPO}..."
+
+          GH_RESP_FILE=$(mktemp)
+          GH_ERR_FILE=$(mktemp)
+          set +e
+          gh api --include "repos/${TARGET_REPO}/pulls/${PR_NUMBER}" > "${GH_RESP_FILE}" 2> "${GH_ERR_FILE}"
+          GH_EXIT_CODE=$?
+          set -e
+
+          HTTP_STATUS=""
+          if [ -s "${GH_RESP_FILE}" ]; then
+            HTTP_STATUS=$(head -n 1 "${GH_RESP_FILE}" | awk '{print $2}')
+          fi
+
+          if [ "${HTTP_STATUS}" = "200" ]; then
+            sed -e '1,/^\r\{0,1\}$/d' "${GH_RESP_FILE}" > .pr-info.json
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+          elif [ "${HTTP_STATUS}" = "404" ]; then
+            echo "::warning::Pull Request #${PR_NUMBER} not found in ${TARGET_REPO} (HTTP 404)."
+            echo "## ⚠️ Badge Evaluation Skipped" >> "$GITHUB_STEP_SUMMARY"
+            echo "Pull Request #${PR_NUMBER} was not found in \`${TARGET_REPO}\` (HTTP 404)." >> "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 0
+          elif [ "${HTTP_STATUS}" = "403" ]; then
+            echo "::error::GitHub API access forbidden (HTTP 403) while querying PR #${PR_NUMBER} in ${TARGET_REPO}"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 1
+          elif [ "${HTTP_STATUS}" = "429" ]; then
+            echo "::error::GitHub API rate limit exceeded (HTTP 429) while querying PR #${PR_NUMBER} in ${TARGET_REPO}"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 1
+          elif [[ "${HTTP_STATUS}" =~ ^5[0-9]{2}$ ]]; then
+            echo "::error::GitHub API server error (HTTP ${HTTP_STATUS}) while querying PR #${PR_NUMBER} in ${TARGET_REPO}"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 1
+          elif [ -n "${HTTP_STATUS}" ]; then
+            echo "::error::Unexpected GitHub API HTTP status (${HTTP_STATUS}) while querying PR #${PR_NUMBER} in ${TARGET_REPO}"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 1
+          else
+            GH_ERR_MSG=$(cat "${GH_ERR_FILE}")
+            echo "::error::GitHub API network/transport error while querying PR #${PR_NUMBER} in ${TARGET_REPO}: ${GH_ERR_MSG}"
+            rm -f "${GH_RESP_FILE}" "${GH_ERR_FILE}"
+            exit 1
+          fi
+
+          IS_MERGED=$(jq -r '.merged // false' .pr-info.json)
+          if [ "${IS_MERGED}" != "true" ]; then
+            echo "::warning::Pull Request #${PR_NUMBER} in ${TARGET_REPO} is not in a merged state (merged=${IS_MERGED})."
+            echo "## ⚠️ Badge Evaluation Skipped" >> "$GITHUB_STEP_SUMMARY"
+            echo "Pull Request #${PR_NUMBER} in \`${TARGET_REPO}\` is not in a merged state." >> "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          gh api "repos/${TARGET_REPO}/pulls/${PR_NUMBER}/files" --paginate --slurp | jq 'add // []' > .pr-files.json
+          gh api "repos/${TARGET_REPO}/pulls/${PR_NUMBER}/commits" --paginate --slurp | jq 'add // []' > .pr-commits.json
+          gh api "repos/${TARGET_REPO}/issues/${PR_NUMBER}/labels" --paginate --slurp | jq 'add // []' > .existing-labels.json
+
+          node -e '
+          const fs = require("fs");
+          const pr = JSON.parse(fs.readFileSync(".pr-info.json"));
+          const files = JSON.parse(fs.readFileSync(".pr-files.json"));
+          const commits = JSON.parse(fs.readFileSync(".pr-commits.json"));
+          fs.writeFileSync(".pr-metadata.json", JSON.stringify({ pr, files, commits }, null, 2));
+          '
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Run award orchestrator in dry-run mode
+        if: ${{ steps.collect-meta.outputs.skip == 'false' }}
+        env:
+          TARGET_REPO: ${{ inputs.repository }}
+        run: |
+          set -euo pipefail
+          node utils/award-orchestrator.js \
+            --metadata=".pr-metadata.json" \
+            --existing-labels=".existing-labels.json" \
+            --repo="${TARGET_REPO}" \
+            --out=".evaluation-result.json"
+
+      - name: Publish step summary
+        if: ${{ steps.collect-meta.outputs.skip == 'false' }}
+        run: |
+          node -e '
+          const fs = require("fs");
+          const res = JSON.parse(fs.readFileSync(".evaluation-result.json"));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, res.summaryMarkdown + "\n");
+          '
+
+      - name: Print sanitized dry-run report
+        if: ${{ steps.collect-meta.outputs.skip == 'false' }}
+        run: |
+          echo "=== SANITIZED DRY-RUN EVALUATION REPORT ==="
+          cat .evaluation-result.json | jq .
