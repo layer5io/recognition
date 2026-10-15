@@ -37,7 +37,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "test:badge-engine": "node --test utils/*.test.js"
   },
   "proxy": "https://discuss.layer5.io/",
   "devDependencies": {
