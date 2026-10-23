@@ -142,6 +142,13 @@
             "location": "assets/badges/continuous-contributor/continuous-contributor.png",
             "title": "Continuous Contributor",
             "description": "This badge is awarded to the community members who make consistent and impactful contributions for a long period of time in Layer5 projects in recognition and appreciation of their efforts."
+        },
+        {
+            "slug": "catalog-designer",
+            "label": "catalog-designer",
+            "location": "assets/badges/catalog-designer/catalog-designer.png",
+            "title": "Consistent Catalog Designer",
+            "description": "This badge is awarded to community members who publish verified designs to the Meshery Catalog in three consecutive months, in recognition and appreciation of their efforts."
         }
     ],
     "archivedBadges": [
