@@ -3,6 +3,7 @@ This folder contains all the Badges. Changing any file in this folder will affec
 
 ### Badges included in this folder are:
 - Bring a buddy
+- Catalog Designer
 - Code Cleanup Crew
 - Community
 - Continuous Contributor
