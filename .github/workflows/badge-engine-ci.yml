@@ -1,0 +1,23 @@
+name: Badge Engine Tests
+
+on:
+  pull_request:
+    paths:
+      - 'utils/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test-badge-engine:
+    name: Run Badge Engine Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2 pinned SHA
+
+      - name: Run badge engine tests
+        run: npm run test:badge-engine
