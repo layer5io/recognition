@@ -7,9 +7,21 @@ import CertifiedMesheryAssociate from "../../../static/assets/badges/certified-m
 import CertifiedMesheryProfessional from "../../../static/assets/badges/certified-meshery-professional/certified-meshery-professional.png";
 import CertifiedMesheryExpert from "../../../static/assets/badges/certified-meshery-expert/certified-meshery-expert.png";
 import CertifiedMesheryDeveloper from "../../../static/assets/badges/certified-meshery-developer/certified-meshery-developer.png";
-import { CustomTooltip } from '@sistent/sistent';
 import BadgesWrapper from './Badges.styles';
 const jsonData = require('../../badgesInfo.json');
+
+const BadgeCard = ({ image, alt, title, label, description }) => (
+  <div className="badge-card" tabIndex={0}>
+    <div className="badge-image">
+      <img src={image} alt={alt} />
+    </div>
+    <div className="badge-info">
+      <span className="badge-title">{title}</span>
+      {label && <span className="badge-label">{label}</span>}
+      <p className="badge-description">{description}</p>
+    </div>
+  </div>
+);
 
 const SectionHeading = ({ id, title, onCopy, feedback }) => {
   const isActive = feedback?.id === id;
@@ -129,13 +141,7 @@ const Footer = () => {
       <div className="badge-grid">
         {jsonData.specialEditionBadges.map((badge) => {
           return (
-            <CustomTooltip title={badge.description} variant="small">
-            <div key={badge.slug}>
-              <img src={badge.location} alt="Layer5 badges" />
-              <span>{badge.title}</span>
-              <span className="badge-label">{badge.label}</span>
-            </div>
-            </CustomTooltip>
+            <BadgeCard key={badge.slug} image={badge.location} alt="Layer5 badges" title={badge.title} label={badge.label} description={badge.description} />
           );
         })}
       </div>
@@ -149,13 +155,7 @@ const Footer = () => {
       <div className="badge-grid">
         {jsonData.achievementBadges.map((badge) => {
           return (
-            <CustomTooltip title={badge.description} variant="small">
-            <div key={badge.slug}>
-              <img src={badge.location} alt="Layer5 badges" />
-              <span>{badge.title}</span>
-              <span className="badge-label">{badge.label}</span>
-            </div>
-            </CustomTooltip>
+            <BadgeCard key={badge.slug} image={badge.location} alt="Layer5 badges" title={badge.title} label={badge.label} description={badge.description} />
           );
         })}
       </div>
@@ -170,13 +170,7 @@ const Footer = () => {
       <div className="badge-grid">
         {jsonData.projectBadges.map((badge) => {
           return (
-            <CustomTooltip title={badge.description} variant="small">
-              <div key={badge.slug}>
-                <img src={badge.imageSource} alt="Layer5 badges" />
-                <span>{badge.title}</span>
-                <span className="badge-label">{badge.label}</span>
-              </div>
-            </CustomTooltip>
+            <BadgeCard key={badge.slug} image={badge.imageSource} alt="Layer5 badges" title={badge.title} label={badge.label} description={badge.description} />
          );
        })}
       </div>
@@ -188,36 +182,11 @@ const Footer = () => {
         feedback={copyFeedback}
       />
       <div className="badge-grid">
-        <CustomTooltip title="This certificate recognizes individuals who have demonstrated a clear understanding of each major Meshery architectural component, the frameworks, and the process of contribution." variant="small">
-          <div>
-            <img src={CertifiedMesheryContributor} alt="Certified Meshery Contributor badge" />
-            <span>Certified Meshery Contributor</span>
-        </div>
-        </CustomTooltip>
-        <CustomTooltip title="The Certified Meshery Developer (CMD) is an advanced certification for developers who build and integrate extensions for the Meshery platform. As a higher tier than the Meshery Certified Contributor (MCC), the CMD shifts focus from contributing to the core project to the specific development of user-facing components and backend integrations that plug into Meshery." variant="small">
-          <div>
-            <img src={CertifiedMesheryDeveloper} alt="Certified Meshery Developer badge" />
-            <span>Certified Meshery Developer</span>
-          </div>
-        </CustomTooltip>
-        <CustomTooltip title="This entry-level certification validates a foundational knowledge of Meshery&apos;s core concepts and working knowledge of all major functional components." variant="small">
-          <div>
-            <img src={CertifiedMesheryAssociate} alt="Certified Meshery Associate badge" />
-            <span>Certified Meshery Associate</span>
-          </div>
-        </CustomTooltip>
-        <CustomTooltip title="This professional-level certification validates the practical ability to use Meshery for real-world infrastructure design, provisioning, and performance management." variant='small'>
-          <div>
-            <img src={CertifiedMesheryProfessional} alt="Certified Meshery Professional badge" />
-            <span>Certified Meshery Professional</span>
-          </div>
-        </CustomTooltip>
-        <CustomTooltip title="This advanced-level certification validates deep expertise in operating, troubleshooting, and extending the Meshery platform through systems integration." variant='small'>
-          <div>
-            <img src={CertifiedMesheryExpert} alt="Certified Meshery Expert badge" />
-            <span>Certified Meshery Expert</span>
-          </div>
-        </CustomTooltip>
+        <BadgeCard image={CertifiedMesheryContributor} alt="Certified Meshery Contributor badge" title="Certified Meshery Contributor" description="This certificate recognizes individuals who have demonstrated a clear understanding of each major Meshery architectural component, the frameworks, and the process of contribution." />
+        <BadgeCard image={CertifiedMesheryDeveloper} alt="Certified Meshery Developer badge" title="Certified Meshery Developer" description="The Certified Meshery Developer (CMD) is an advanced certification for developers who build and integrate extensions for the Meshery platform. As a higher tier than the Meshery Certified Contributor (MCC), the CMD shifts focus from contributing to the core project to the specific development of user-facing components and backend integrations that plug into Meshery." />
+        <BadgeCard image={CertifiedMesheryAssociate} alt="Certified Meshery Associate badge" title="Certified Meshery Associate" description="This entry-level certification validates a foundational knowledge of Meshery&apos;s core concepts and working knowledge of all major functional components." />
+        <BadgeCard image={CertifiedMesheryProfessional} alt="Certified Meshery Professional badge" title="Certified Meshery Professional" description="This professional-level certification validates the practical ability to use Meshery for real-world infrastructure design, provisioning, and performance management." />
+        <BadgeCard image={CertifiedMesheryExpert} alt="Certified Meshery Expert badge" title="Certified Meshery Expert" description="This advanced-level certification validates deep expertise in operating, troubleshooting, and extending the Meshery platform through systems integration." />
         {/* <div>
           <img src={MeshMasterCertified} alt="Layer5 badges" />
           <span>MeshMaster</span>
@@ -238,13 +207,7 @@ const Footer = () => {
       <div className="badge-grid">
         {jsonData.archivedBadges.map((badge) => {
           return (
-            <CustomTooltip title={badge.description} variant="small">
-            <div key={badge.slug}>
-              <img src={badge.location} alt="Archived badges" />
-              <span>{badge.title}</span>
-              <span className="badge-label">{badge.label}</span>
-            </div>
-          </CustomTooltip>
+            <BadgeCard key={badge.slug} image={badge.location} alt="Archived badges" title={badge.title} label={badge.label} description={badge.description} />
         );
       })}
     </div>

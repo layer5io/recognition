@@ -77,24 +77,54 @@ export const BadgesWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: 1rem;
-    > div {
-      display: flex;
-      flex-direction: column;
+    > .badge-card {
+      position: relative;
       flex-grow: 1;
+      width: 260px;
       max-width: 20%;
+      height: 440px;
       margin: 1rem;
-      align-items: center;
-      > span {
-        text-align: center;
-        font-weight: 600;
-        margin-bottom: 0.3125rem;
-        font-size: 1.3125rem;
-        color: ${({ theme }) => theme.text};
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      background: ${({ theme }) => theme.body || 'transparent'};
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      outline: none;
+
+      .badge-image {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        img {
+          max-width: 100%;
+          width: 230px;
+          height: 330px;
+          object-fit: contain;
+        }
       }
-      > img {
-        max-width: 250px;
-        min-height: 360px;
-        object-fit: contain;
+      .badge-info {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 78%;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: top 0.4s ease;
+      }
+      .badge-title {
+        font-weight: 600;
+        font-size: 1.3125rem;
+        margin-bottom: 0.3125rem;
+        color: ${({ theme }) => theme.text};
       }
       .badge-label {
         font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
@@ -105,22 +135,50 @@ export const BadgesWrapper = styled.div`
         letter-spacing: 0.5px;
         margin-top: 4px;
         font-weight: 600;
-      } 
-    }
+      }
+      .badge-description {
+        margin: 0.75rem 0 0;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        color: ${({ theme }) => theme.text};
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        pointer-events: none;
+      }
 
+      &:hover,
+      &:focus-within,
+      &:focus {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        transform: translateY(-2px);
+        .badge-image {
+          transform: translateY(-120%);
+          opacity: 0;
+        }
+        .badge-info {
+          top: 1.25rem;
+        }
+        .badge-description {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+    }
   }  
   @media (max-width: 1250px) {
-    div.badge-grid > div {
+    div.badge-grid > .badge-card {
       max-width: 25%;
     }
   }
   @media (max-width: 992px) {
-    div.badge-grid > div {
+    div.badge-grid > .badge-card {
       max-width: 45%;
     }
   }
   @media (max-width: 670px) {
-    div.badge-grid > div {
+    div.badge-grid > .badge-card {
       max-width: 95%;
     }
   }
