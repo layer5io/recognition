@@ -11,7 +11,7 @@ import BadgesWrapper from './Badges.styles';
 const jsonData = require('../../badgesInfo.json');
 
 const BadgeCard = ({ image, alt, title, label, description }) => (
-  <div className="badge-card" tabIndex={0}>
+  <div className="badge-card" role="group" aria-label={title} tabIndex={0}>
     <div className="badge-image">
       <img src={image} alt={alt} />
     </div>

@@ -90,8 +90,11 @@ export const BadgesWrapper = styled.div`
       background: ${({ theme }) => theme.body || 'transparent'};
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
       outline: none;
+
+      &:focus {
+        outline: 2px solid currentColor;
+      }
 
       .badge-image {
         position: absolute;
@@ -113,12 +116,14 @@ export const BadgesWrapper = styled.div`
         left: 0;
         right: 0;
         top: 78%;
-        padding: 0 1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         transition: top 0.4s ease;
+      }
+      .badge-info > * {
+        padding: 0 1rem;
       }
       .badge-title {
         font-weight: 600;
@@ -145,6 +150,10 @@ export const BadgesWrapper = styled.div`
         transform: translateY(40px);
         transition: opacity 0.4s ease, transform 0.4s ease;
         pointer-events: none;
+        max-height: 20rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: left;
       }
 
       &:hover,
@@ -172,7 +181,7 @@ export const BadgesWrapper = styled.div`
       max-width: 25%;
     }
   }
-  @media (max-width: 992px) {
+  @media (max-width: 1060px) {
     div.badge-grid > .badge-card {
       max-width: 45%;
     }
