@@ -31,13 +31,7 @@
        
     ],
     "achievementBadges": [
-        {
-            "slug": "first-application",
-            "label": "first-application",
-            "location": "assets/badges/first-application/first-application.png",
-            "title": "Application Pioneer",
-            "description": "This badge is awarded to the Layer5 cloud users when they create their first application."
-        },
+
         {
             "slug": "design-pioneer",
             "label": "first-design",
@@ -152,6 +146,13 @@
         }
     ],
     "archivedBadges": [
+         {
+            "slug": "first-application",
+            "label": "first-application",
+            "location": "assets/badges/first-application/first-application.png",
+            "title": "Application Pioneer",
+            "description": "This badge is awarded to the Layer5 cloud users when they create their first application."
+        },
          {
             "slug": "hacktoberfest-contributor",
             "label": "hacktoberfest-contributor",
