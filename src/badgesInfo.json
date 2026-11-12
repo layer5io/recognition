@@ -31,13 +31,7 @@
        
     ],
     "achievementBadges": [
-        {
-            "slug": "first-application",
-            "label": "first-application",
-            "location": "assets/badges/first-application/first-application.png",
-            "title": "Application Pioneer",
-            "description": "This badge is awarded to the Layer5 cloud users when they create their first application."
-        },
+
         {
             "slug": "design-pioneer",
             "label": "first-design",
@@ -142,9 +136,23 @@
             "location": "assets/badges/continuous-contributor/continuous-contributor.png",
             "title": "Continuous Contributor",
             "description": "This badge is awarded to the community members who make consistent and impactful contributions for a long period of time in Layer5 projects in recognition and appreciation of their efforts."
+        },
+        {
+            "slug": "catalog-designer",
+            "label": "catalog-designer",
+            "location": "assets/badges/catalog-designer/catalog-designer.png",
+            "title": "Consistent Catalog Designer",
+            "description": "This badge is awarded to community members who publish verified designs to the Meshery Catalog in three consecutive months, in recognition and appreciation of their efforts."
         }
     ],
     "archivedBadges": [
+         {
+            "slug": "first-application",
+            "label": "first-application",
+            "location": "assets/badges/first-application/first-application.png",
+            "title": "Application Pioneer",
+            "description": "This badge is awarded to the Layer5 cloud users when they create their first application."
+        },
          {
             "slug": "hacktoberfest-contributor",
             "label": "hacktoberfest-contributor",
