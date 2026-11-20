@@ -4,7 +4,7 @@ export const Header = styled.header`
   position: sticky;
   top: 0;
   background: #fff;
-  z-index: 1;
+  z-index: 1000;
 
   nav {
     background: ${({ theme }) => theme.body};

@@ -4,7 +4,7 @@ export const Header = styled.header`
   position: sticky;
   top: 0;
   background: #fff;
-  z-index: 1;
+  z-index: 1000; /* keep the sticky header above buttons and page content */
   .dropDown {
     float: left;
     transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
