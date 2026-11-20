@@ -17,7 +17,6 @@ const ButtonStyle = styled.button`
   position: relative;
   color: ${props => props.theme.white};
   background-color: #00b39f;
-  z-index: 999;
   &:hover,
   &:focus {
     color: white;
